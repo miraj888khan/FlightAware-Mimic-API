@@ -1,0 +1,45 @@
+PROJECT: FlightAware Mimic API
+================================
+
+DESCRIPTION:
+A Python FastAPI application that mimics the core functionality of a flight tracking service like FlightAware. It provides real-time flight tracking, data ingestion, and interactive map visualization capabilities.
+
+KEY FEATURES:
+- Real-time flight tracking API built with FastAPI
+- MongoDB integration for data persistence
+- Live flight management and archival system
+- Location data ingestion via POST endpoints
+- Interactive flight path visualization using Folium maps
+- RESTful API for complete flight lifecycle management
+
+TECH STACK:
+- Backend: Python 3.8+ with FastAPI
+- Database: MongoDB
+- Server: Uvicorn (ASGI)
+- Visualization: Folium
+- Dependencies: pymongo, uvicorn, python-dotenv
+
+MAIN ENDPOINTS:
+- POST /flights - Register a new scheduled flight
+- POST /ingest - Ingest location data (radio signals)
+- GET /track/{flight_id} - Retrieve flight path
+- GET /track/{flight_id}/map - Interactive map of flight path
+- POST /flights/{flight_id}/complete - Mark flight as completed
+
+REQUIREMENTS:
+- Python 3.8 or higher
+- MongoDB running on localhost:27017
+- All dependencies listed in requirements.txt
+
+USE CASES:
+- Flight tracking and monitoring system
+- Aviation data management
+- Real-time location tracking
+- Flight history and analytics
+
+INSTALLATION & SETUP:
+1. Install dependencies: pip install -r requirements.txt
+2. Ensure MongoDB is running
+3. Seed database (optional): python scripts/seed_db.py
+4. Run server: uvicorn app.main:app --reload
+5. Access API docs at http://localhost:8000/docs

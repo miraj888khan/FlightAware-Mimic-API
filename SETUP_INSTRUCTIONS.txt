@@ -1,0 +1,99 @@
+FLIGHTAWARE MIMIC API - SETUP & RUN INSTRUCTIONS
+==================================================
+
+If you've cloned this project and don't have a virtual environment (venv) folder, follow these steps:
+
+STEP 1: CREATE AND ACTIVATE VIRTUAL ENVIRONMENT
+================================================
+On Windows (Command Prompt or PowerShell):
+  python -m venv venv
+  .\venv\Scripts\activate
+
+On macOS/Linux:
+  python3 -m venv venv
+  source venv/bin/activate
+
+After activation, you should see (venv) at the beginning of your terminal prompt.
+
+
+STEP 2: INSTALL DEPENDENCIES
+=============================
+With the virtual environment activated, run:
+  pip install -r requirements.txt
+
+This will install all required packages:
+- fastapi
+- uvicorn[standard]
+- pymongo
+- python-dotenv
+- folium
+
+
+STEP 3: ENSURE MONGODB IS RUNNING
+==================================
+Make sure MongoDB is running on your machine at: mongodb://localhost:27017/
+
+You can verify MongoDB is running by:
+- Windows: Check if mongod.exe is running in Task Manager
+- macOS: Check Activity Monitor for mongod
+- Linux: Run: sudo systemctl status mongod
+
+If MongoDB is not running, start it:
+- Windows: mongod (from Command Prompt)
+- macOS: brew services start mongodb-community
+- Linux: sudo systemctl start mongod
+
+
+STEP 4: (OPTIONAL) SEED THE DATABASE
+=====================================
+To populate the database with sample flight data, run:
+  python scripts/seed_db.py
+
+This will load sample flights from data/seed_flights.json into MongoDB.
+
+
+STEP 5: RUN THE APPLICATION
+============================
+With the virtual environment activated, run:
+  uvicorn app.main:app --reload
+
+You should see output similar to:
+  INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+  Connected to MongoDB at mongodb://localhost:27017/
+
+
+STEP 6: ACCESS THE APPLICATION
+===============================
+Open your browser and navigate to:
+- API Documentation: http://localhost:8000/docs
+- ReDoc Documentation: http://localhost:8000/redoc
+- API Root: http://localhost:8000/
+
+From the /docs page, you can test all API endpoints interactively.
+
+
+TROUBLESHOOTING
+===============
+1. If you get "pip: command not found"
+   - Make sure Python 3.8+ is installed
+   - Try: python -m pip install -r requirements.txt
+
+2. If you get "MongoDB connection refused"
+   - Ensure MongoDB is running
+   - Check if MongoDB is on the default port 27017
+   - Update MONGO_URI in app/database.py if needed
+
+3. If you get "Module not found" errors
+   - Make sure you activated the venv: .\venv\Scripts\activate (Windows)
+   - Reinstall packages: pip install -r requirements.txt
+
+4. If port 8000 is already in use
+   - Run on a different port: uvicorn app.main:app --reload --port 8001
+
+
+DEACTIVATING VIRTUAL ENVIRONMENT
+==================================
+When you're done working, deactivate the virtual environment:
+  deactivate
+
+The (venv) prefix will disappear from your terminal prompt.
